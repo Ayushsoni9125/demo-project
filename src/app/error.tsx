@@ -16,7 +16,7 @@ export default function Error({
         </h1>
 
         <p className="mb-6 text-muted-foreground">
-          We couldn't load the users. Please try again.
+          We could not load the users. Please try again.
         </p>
 
         <Button onClick={() => reset()}>
