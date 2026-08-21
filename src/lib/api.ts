@@ -7,21 +7,8 @@ interface UsersResponse {
   limit: number;
 }
 
-export interface PaginatedUsers {
-  users: User[];
-  total: number;
-  page: number;
-  totalPages: number;
-}
-
-export async function getUsers(
-  page: number = 1,
-  limit: number = 10
-): Promise<PaginatedUsers> {
-  const skip = (page - 1) * limit;
-  const response = await fetch(
-    `https://dummyjson.com/users?limit=${limit}&skip=${skip}`
-  );
+export async function getUsers(): Promise<User[]> {
+  const response = await fetch("https://dummyjson.com/users");
 
   if (!response.ok) {
     throw new Error("Failed to fetch users");
@@ -29,12 +16,7 @@ export async function getUsers(
 
   const data: UsersResponse = await response.json();
 
-  return {
-    users: data.users,
-    total: data.total,
-    page,
-    totalPages: Math.ceil(data.total / limit),
-  };
+  return data.users;
 }
 
 export async function getUser(id: string): Promise<User> {
